@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\Api\ArticleController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\SourceController;
 use Illuminate\Support\Facades\Route;
    
 Route::controller(AuthController::class)->group(function(){
@@ -12,5 +15,20 @@ Route::controller(AuthController::class)->group(function(){
 Route::middleware('auth:sanctum')->group(function() {
     Route::controller(AuthController::class)->group(function() {
         Route::post('logout', 'logout');
+    });
+    Route::controller(ArticleController::class)->group(function() {
+        Route::get('articles', 'index');
+        Route::get('articles/{id}', 'show');
+    });
+    Route::controller(CategoryController::class)->group(function() {
+        Route::get('categories', 'index');
+    });
+    Route::controller(SourceController::class)->group(function() {
+        Route::get('sources', 'index');
+        Route::post('sources', 'store');
+        Route::get('sources/{id}', 'show');
+    });
+    Route::controller(SourceController::class)->group(function() {
+        Route::get('authors', 'index');
     });
 });

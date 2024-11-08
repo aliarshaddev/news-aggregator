@@ -35,7 +35,7 @@ class AuthController extends BaseController
      *                 @OA\Property(property="token", type="string", example="token123"),
      *                 @OA\Property(property="name", type="string", example="John Doe")
      *             ),
-     *             @OA\Property(property="message", type="string", example="User register successfully.")
+     *             @OA\Property(property="message", type="string", example="success")
      *         ),
      *     ),
      *     @OA\Response(
@@ -43,7 +43,7 @@ class AuthController extends BaseController
      *         description="Validation Error",
      *         @OA\JsonContent(
      *             @OA\Property(property="success", type="boolean", example=false),
-     *             @OA\Property(property="message", type="string", example="Validation Error."),
+     *             @OA\Property(property="message", type="string", example="error"),
      *             @OA\Property(property="data", type="object")
      *         ),
      *     )
@@ -68,7 +68,7 @@ class AuthController extends BaseController
         $success['token'] =  $user->createToken('auth_token')->plainTextToken;
         $success['name'] =  $user->name;
    
-        return $this->sendResponse($success, 'User register successfully.');
+        return $this->sendResponse($success);
     }
    
 /**
@@ -92,7 +92,7 @@ class AuthController extends BaseController
      *                 @OA\Property(property="token", type="string", example="token123"),
      *                 @OA\Property(property="name", type="string", example="John Doe")
      *             ),
-     *             @OA\Property(property="message", type="string", example="User login successfully.")
+     *             @OA\Property(property="message", type="string", example="success")
      *         ),
      *     ),
      *     @OA\Response(
@@ -100,7 +100,7 @@ class AuthController extends BaseController
      *         description="Unauthorised",
      *         @OA\JsonContent(
      *             @OA\Property(property="success", type="boolean", example=false),
-     *             @OA\Property(property="message", type="string", example="Unauthorised."),
+     *              @OA\Property(property="message", type="string", example="error"),
      *             @OA\Property(property="data", type="object")
      *         ),
      *     )
@@ -113,7 +113,7 @@ class AuthController extends BaseController
             $success['token'] =  $user->createToken('auth_token')->plainTextToken; 
             $success['name'] =  $user->name;
    
-            return $this->sendResponse($success, 'User login successfully.');
+            return $this->sendResponse($success);
         } 
         else{ 
             return $this->sendError('Unauthorised.', [], 401);
@@ -132,7 +132,7 @@ class AuthController extends BaseController
      *         @OA\JsonContent(
      *             @OA\Property(property="success", type="boolean", example=true),
      *             @OA\Property(property="data", type="object"),
-     *             @OA\Property(property="message", type="string", example="Logged out successfully.")
+     *             @OA\Property(property="message", type="string", example="success")
      *         ),
      *     ),
      *     @OA\Response(
@@ -140,7 +140,7 @@ class AuthController extends BaseController
      *         description="Unauthenticated",
      *         @OA\JsonContent(
      *             @OA\Property(property="success", type="boolean", example=false),
-     *             @OA\Property(property="message", type="string", example="Unauthenticated."),
+     *             @OA\Property(property="message", type="string", example="error"),
      *             @OA\Property(property="data", type="object")
      *         ),
      *     )
@@ -150,7 +150,7 @@ class AuthController extends BaseController
     {
         $request->user()->tokens()->delete();
         $success = [];
-        return $this->sendResponse($success, 'Logged out successfully.');
+        return $this->sendResponse($success);
     }
 
     /**
@@ -178,7 +178,7 @@ class AuthController extends BaseController
      *         description="Password reset failed",
      *         @OA\JsonContent(
      *             @OA\Property(property="success", type="boolean", example=false),
-     *             @OA\Property(property="message", type="string", example="Password reset failed"),
+     *              @OA\Property(property="message", type="string", example="error"),
      *             @OA\Property(property="data", type="object",
      *                 @OA\Property(property="email", type="string", example="We can't find a user with that email address.")
      *             )
@@ -194,7 +194,7 @@ class AuthController extends BaseController
         );
         if($status == Password::RESET_LINK_SENT)
         {
-            return $this->sendResponse([], 'Password reset successful');
+            return $this->sendResponse();
         }
         return $this->sendError('Password reset failed', ['email' => __($status)], 400);
     }
