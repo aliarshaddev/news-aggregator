@@ -797,6 +797,182 @@
                     }
                 }
             }
+        },
+        "/api/user/preferences": {
+            "get": {
+                "tags": [
+                    "User Preferences"
+                ],
+                "summary": "Get user preferences",
+                "description": "Retrieve saved user preferences",
+                "operationId": "b6c86d24e40ae399b2582534c21512e1",
+                "responses": {
+                    "200": {
+                        "description": "User preferences retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/UserPreference"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "User Preferences"
+                ],
+                "summary": "Set user preferences",
+                "description": "Save user preferences for sources, categories, and authors",
+                "operationId": "3836d1a45139498e672000d0e571c47c",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "preferred_sources": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "integer"
+                                        },
+                                        "example": [
+                                            1,
+                                            2,
+                                            3
+                                        ]
+                                    },
+                                    "preferred_categories": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "integer"
+                                        },
+                                        "example": [
+                                            4,
+                                            5
+                                        ]
+                                    },
+                                    "preferred_authors": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "integer"
+                                        },
+                                        "example": [
+                                            6
+                                        ]
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Preferences saved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/UserPreference"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/user/personalized-feed": {
+            "get": {
+                "tags": [
+                    "User Preferences"
+                ],
+                "summary": "Get personalized news feed",
+                "description": "Fetches articles based on user's preferences",
+                "operationId": "abd5b050e57ed6bf91ffdc4ad9342d5c",
+                "parameters": [
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Number of articles per page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 10
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Personalized news feed based on user preferences",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Article"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
         }
     },
     "components": {
@@ -912,6 +1088,48 @@
                     }
                 },
                 "type": "object"
+            },
+            "UserPreference": {
+                "title": "User Preference",
+                "description": "A user's preferences for news sources, categories, and authors",
+                "properties": {
+                    "user_id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "preferred_sources": {
+                        "type": "array",
+                        "items": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    },
+                    "preferred_categories": {
+                        "type": "array",
+                        "items": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    },
+                    "preferred_authors": {
+                        "type": "array",
+                        "items": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-11-07T12:00:00Z"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-11-07T12:00:00Z"
+                    }
+                },
+                "type": "object"
             }
         }
     },
@@ -935,6 +1153,10 @@
         {
             "name": "Sources",
             "description": "Sources"
+        },
+        {
+            "name": "User Preferences",
+            "description": "User Preferences"
         }
     ]
 }

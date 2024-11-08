@@ -17,12 +17,8 @@ class BaseController extends Controller
     	$response = [
             'success' => true,
             'message' => "success",
+            'data' => !empty($result) ? $result : null
         ];
-        if($result)
-        {
-            $response['data'] = $result;
-        }
-
         return response()->json($response, 200);
     }
 
