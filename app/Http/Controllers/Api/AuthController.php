@@ -59,7 +59,7 @@ class AuthController extends BaseController
         ]);
    
         if($validator->fails()){
-            return $this->sendError('Validation Error.', $validator->errors());       
+            return $this->sendError($validator->errors());       
         }
    
         $input = $request->all();
@@ -116,7 +116,7 @@ class AuthController extends BaseController
             return $this->sendResponse($success);
         } 
         else{ 
-            return $this->sendError('Unauthorised.', [], 401);
+            return $this->sendError(["incorrect" => 'Incorrect email or password.'], 401);
         }  
     }
 
@@ -196,6 +196,6 @@ class AuthController extends BaseController
         {
             return $this->sendResponse();
         }
-        return $this->sendError('Password reset failed', ['email' => __($status)], 400);
+        return $this->sendError(['email' => __($status)], 400);
     }
 }
