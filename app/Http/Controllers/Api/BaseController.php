@@ -1,9 +1,10 @@
 <?php
-
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller as Controller;
-
+/**
+ * @OA\Info(title="News Aggregator API Documentation", version="1.0")
+ */
 class BaseController extends Controller
 {
     /**
