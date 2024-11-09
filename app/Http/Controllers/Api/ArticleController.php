@@ -154,7 +154,7 @@ class ArticleController extends BaseController
         $article = Article::with(['source', 'category', 'author'])->find($id);
 
         if (!$article) {
-            return response()->json(['message' => 'Article not found'], 404);
+            $this->sendResponse();
         }
         return $this->sendResponse($article);
     }

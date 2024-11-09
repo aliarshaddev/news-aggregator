@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Source;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Api\BaseController as BaseController;
+use Illuminate\Support\Facades\Validator;
+
 /**
  * @OA\Schema(
  *     schema="Source",
@@ -52,12 +54,14 @@ class SourceController extends BaseController
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'name' => 'required|string|unique:sources,name',
             'title' => 'required|string',
             'rss_feed_link' => 'required|string',
         ]);
-
+        if ($validator->fails()) {
+            return $this->sendError($validator->errors(), 422);
+        }
         $category = Source::create([
             'name' => $request->name,
             'title' => $request->title,
@@ -71,6 +75,20 @@ class SourceController extends BaseController
      *     summary="Get a list of sources",
      *     description="Fetches a list of all sources",
      *     tags={"Sources"},
+     *     @OA\Parameter(
+     *         name="per_page",
+     *         in="query",
+     *         required=false,
+     *         description="Number of articles per page",
+     *         @OA\Schema(type="integer", default=10)
+     *     ),
+     *     @OA\Parameter(
+     *         name="page",
+     *         in="query",
+     *         required=false,
+     *         description="Page number",
+     *         @OA\Schema(type="integer", default=1)
+     *     ),
      *     @OA\Response(
      *         response=200,
      *         description="A list of sources",

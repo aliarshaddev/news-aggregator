@@ -25,6 +25,20 @@ class CategoryController extends BaseController
      *     summary="Get a list of categories",
      *     description="Fetches a list of all categories",
      *     tags={"Categories"},
+     *     @OA\Parameter(
+     *         name="per_page",
+     *         in="query",
+     *         required=false,
+     *         description="Number of articles per page",
+     *         @OA\Schema(type="integer", default=10)
+     *     ),
+     *     @OA\Parameter(
+     *         name="page",
+     *         in="query",
+     *         required=false,
+     *         description="Page number",
+     *         @OA\Schema(type="integer", default=1)
+     *     ),
      *     @OA\Response(
      *         response=200,
      *         description="A list of categories",

@@ -7,9 +7,8 @@ use App\Models\Role;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Validator;
 use Illuminate\Support\Facades\Password;
-
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends BaseController
 {
@@ -60,7 +59,7 @@ class AuthController extends BaseController
         ]);
    
         if($validator->fails()){
-            return $this->sendError($validator->errors());       
+            return $this->sendError($validator->errors(),422);       
         }
    
         $input = $request->all();
@@ -151,8 +150,7 @@ class AuthController extends BaseController
     public function logout(Request $request)
     {
         $request->user()->tokens()->delete();
-        $success = [];
-        return $this->sendResponse($success);
+        return $this->sendResponse();
     }
 
     /**

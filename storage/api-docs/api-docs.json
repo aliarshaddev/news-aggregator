@@ -509,6 +509,28 @@
                 "summary": "Get a list of authors",
                 "description": "Fetches a list of all authors",
                 "operationId": "b1de4facd6962392c6fde61f8a7b097a",
+                "parameters": [
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Number of articles per page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 10
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 1
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "A list of authors",
@@ -572,6 +594,28 @@
                 "summary": "Get a list of categories",
                 "description": "Fetches a list of all categories",
                 "operationId": "ac9c4d978ea4e5b72915ca9728e5b8b1",
+                "parameters": [
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Number of articles per page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 10
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 1
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "A list of categories",
@@ -635,6 +679,28 @@
                 "summary": "Get a list of sources",
                 "description": "Fetches a list of all sources",
                 "operationId": "14187994c89fe56b7c1d044c4558766b",
+                "parameters": [
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Number of articles per page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 10
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 1
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "A list of sources",

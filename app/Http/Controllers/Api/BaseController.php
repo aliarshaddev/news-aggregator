@@ -55,6 +55,7 @@ class BaseController extends Controller
             'page_context' => [
                 'page' => $data->currentPage(),
                 'per_page' => (string) $data->perPage(),
+                'total_pages' => $data->lastPage(),
                 'has_more_page' => $data->currentPage() < $data->lastPage() ? "true" : "false",
                 'sort_column' => $sortColumn,
                 'sort_order' => strtoupper($sortOrder),
