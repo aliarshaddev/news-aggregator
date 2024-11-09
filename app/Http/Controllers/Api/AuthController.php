@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Api\BaseController as BaseController;
+use App\Models\Role;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -64,6 +65,7 @@ class AuthController extends BaseController
    
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
+        $input['role_id'] = Role::where('name', 'user')->value('id');
         $user = User::create($input);
         $success['token'] =  $user->createToken('auth_token')->plainTextToken;
         $success['name'] =  $user->name;
