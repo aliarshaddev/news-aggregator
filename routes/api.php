@@ -13,7 +13,7 @@ Route::controller(AuthController::class)->group(function(){
     Route::post('reset-password', 'resetPassword')->name('password.reset');
     Route::post('logout', 'logout');
 });
-Route::middleware('auth:sanctum')->group(function() {
+Route::middleware(['auth:sanctum', 'role:admin,user'])->group(function() {
     Route::controller(AuthController::class)->group(function() {
         Route::post('logout', 'logout');
     });

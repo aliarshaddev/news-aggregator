@@ -22,6 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role_id'
     ];
 
     /**
@@ -49,5 +50,17 @@ class User extends Authenticatable
     public function preferences()
     {
         return $this->hasOne(UserPreference::class);
+    }
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+    public function hasRole($role)
+    {
+        if (is_array($role)) {
+            return in_array($this->role->name, $role);
+        }
+
+        return $this->role->name === $role;
     }
 }
