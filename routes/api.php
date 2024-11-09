@@ -13,7 +13,7 @@ Route::controller(AuthController::class)->group(function(){
     Route::post('login', 'login')->name('login');
     Route::post('reset-password', 'resetPassword')->name('password.reset');
 });
-Route::middleware(['auth:sanctum', 'role:admin,user'])->group(function() {
+Route::middleware(['auth:sanctum', 'role:admin,user', 'throttle:20'])->group(function() {
     Route::controller(AuthController::class)->group(function() {
         Route::post('logout', 'logout');
     });
