@@ -9,6 +9,7 @@ use App\Models\Category;
 use App\Models\Source;
 use App\Models\Author;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Cache;
 
 class FetchArticles extends Command
 {
@@ -51,6 +52,7 @@ class FetchArticles extends Command
                 $this->parseArticle($item, $source);
             }
         }
+        Cache::forget('articles_*');
     }
     protected function parseArticle($item, $source)
     {

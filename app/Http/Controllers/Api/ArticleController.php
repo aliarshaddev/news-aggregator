@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Models\Article;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Api\BaseController as BaseController;
+use Illuminate\Support\Facades\Cache;
+
 /**
  * @OA\Schema(
  *     schema="Article",
@@ -96,31 +98,36 @@ class ArticleController extends BaseController
      */
     public function index(Request $request)
     {
-        $query = Article::query();
-        if ($request->filled('keyword')) {
-            $query->where('title', 'like', '%' . $request->keyword . '%')
-                  ->orWhere('description', 'like', '%' . $request->keyword . '%');
-        }
-
-        if ($request->filled('category_id')) {
-            $query->whereHas('category', function ($q) use ($request) {
-                $q->where('id', $request->category_id);
-            });
-        }
-
-        if ($request->filled('source_id')) {
-            $query->whereHas('source', function ($q) use ($request) {
-                $q->where('id', $request->source_id);
-            });
-        }
-
-        if ($request->filled('date')) {
-            $query->whereDate('published_at', $request->date);
-        }
-        $perPage = $request->input('per_page', 10);
-        $articles = $query->with(['source', 'category', 'author'])->paginate($perPage);
+        $cacheKey = 'articles_' . md5(serialize($request->query()));
+        $cacheDuration = 300;
+        $articles = Cache::remember($cacheKey, $cacheDuration, function () use ($request) {
+            $query = Article::query();
+            if ($request->filled('keyword')) {
+                $query->where('title', 'like', '%' . $request->keyword . '%')
+                      ->orWhere('description', 'like', '%' . $request->keyword . '%');
+            }
+    
+            if ($request->filled('category_id')) {
+                $query->whereHas('category', function ($q) use ($request) {
+                    $q->where('id', $request->category_id);
+                });
+            }
+    
+            if ($request->filled('source_id')) {
+                $query->whereHas('source', function ($q) use ($request) {
+                    $q->where('id', $request->source_id);
+                });
+            }
+    
+            if ($request->filled('date')) {
+                $query->whereDate('published_at', $request->date);
+            }
+            $perPage = $request->input('per_page', 10);
+            return $query->with(['source', 'category', 'author'])->paginate($perPage);
+        });
+        // Use this for clear the cache for the route this is to be used in store method when new article is added
+        // Cache::forget('articles_*');
         return $this->sendPaginatedResponse($articles);
-
     }
     /**
      * @OA\Get(
