@@ -91,21 +91,21 @@ A Laravel-based RESTful API for a news aggregator service that collects articles
    php artisan db:seed
    ```
 
-6. **Run on local machine(without docker)**
+6. **Run on local machine**
    Run the following command and the application should be running on `http://localhost:8000`.
 
    ```bash
    php artisan serve
    ```
 
-7. **Run Tests(without docker)**
+7. **Run Tests**
    Unit tests are available for key API endpoints. Run tests using:
 
    ```bash
    php artisan test
    ```
 
-## Setup Instructions without docker
+## Setup Instructions with docker
 
 1. **Build and Start Docker Containers**
 
@@ -120,7 +120,7 @@ A Laravel-based RESTful API for a news aggregator service that collects articles
    After the containers are running, execute migrations with:
 
    ```bash
-   docker exec -t laravelapp php key:generate
+   docker exec -t laravelapp php artisan key:generate
    ```
 
 3. **Run Database Migrations and Seeders**
@@ -139,7 +139,7 @@ A Laravel-based RESTful API for a news aggregator service that collects articles
 
 ## Running the Docker Environment
 
-After completing the setup steps, the application should be running on `http://localhost:8000`.
+After completing the setup steps, the application should be running on http://localhost:8000.
 
 To shut down the Docker environment, use:
 
