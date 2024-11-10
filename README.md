@@ -114,6 +114,18 @@ A Laravel-based RESTful API for a news aggregator service that collects articles
 7. **Run Tests**
    Unit tests are available for key API endpoints. Run tests using:
 
+   For Linux:
+
+   ```bash
+   touch database/database.sqlite
+   ```
+
+   For Windows:
+
+   ```bash
+   echo. > database/database.sqlite
+   ```
+
    ```bash
    php artisan test
    ```
@@ -148,6 +160,14 @@ A Laravel-based RESTful API for a news aggregator service that collects articles
 
    ```bash
    docker exec -t laravelapp php artisan db:seed
+   ```
+
+4. **Run Tests**
+
+   Run tests using:
+
+   ```bash
+   docker exec -t laravelapp php artisan test
    ```
 
 ## Running the Docker Environment
