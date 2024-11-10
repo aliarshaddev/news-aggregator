@@ -32,6 +32,11 @@ A Laravel-based RESTful API for a news aggregator service that collects articles
 
    ```bash
    git clone https://github.com/aliarshaddev/news-aggregator.git
+   ```
+
+   and
+
+   ```bash
    cd news-aggregator
    ```
 
@@ -39,8 +44,16 @@ A Laravel-based RESTful API for a news aggregator service that collects articles
 
    Duplicate the `.env.example` file to create a `.env` file:
 
+   For Linux:
+
    ```bash
    cp .env.example .env
+   ```
+
+   For Windows:
+
+   ```bash
+   copy .env.example .env
    ```
 
    Update the `.env` file:
