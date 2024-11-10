@@ -138,19 +138,19 @@ class UserPreferenceController extends BaseController
     {
         $user = Auth::user();
         $preferences = $user->preferences;
-        if (!$preferences) {
+        if (empty($preferences)) {
             $this->sendResponse();
         }
         $query = Article::query();
-        if ($preferences->preferred_sources) {
+        if (!empty($preferences->preferred_sources)) {
             $query->whereIn('source_id', $preferences->preferred_sources);
         }
 
-        if ($preferences->preferred_categories) {
+        if (!empty($preferences->preferred_categories)) {
             $query->whereIn('category_id', $preferences->preferred_categories);
         }
 
-        if ($preferences->preferred_authors) {
+        if (!empty($preferences->preferred_authors)) {
             $query->whereIn('author_id', $preferences->preferred_authors);
         }
         $perPage = $request->input('per_page', 10);

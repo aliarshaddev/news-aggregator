@@ -31,7 +31,7 @@ RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 775 /var/www/html/bootstrap/cache
 
 # install php and node.js dependencies
-RUN composer install --no-dev --prefer-dist \
+RUN composer install --dev --prefer-dist \
     && npm install \
     && npm run build
 
