@@ -61,14 +61,8 @@ A Laravel-based RESTful API for a news aggregator service that collects articles
    Update the `.env` file:
 
    ```env
-   APP_NAME="News Aggregator API"
-   APP_ENV=local
-   APP_KEY=base64:your_generated_app_key
-   APP_DEBUG=true
-   APP_URL=http://localhost
-
    DB_CONNECTION=mysql
-   DB_HOST=db
+   DB_HOST=127.0.0.1
    DB_PORT=3306
    DB_DATABASE=news-aggregator
    DB_USERNAME=root
