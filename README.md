@@ -26,8 +26,6 @@ A Laravel-based RESTful API for a news aggregator service that collects articles
 - Composer (for initial Laravel setup)
 - Laravel 11
 
-## Setup Instructions without docker
-
 1. **Clone the Repository**
 
    ```bash
@@ -56,6 +54,10 @@ A Laravel-based RESTful API for a news aggregator service that collects articles
    copy .env.example .env
    ```
 
+## Setup Instructions without docker
+
+1. **Set up Environment Variables**
+
    Update the `.env` file:
 
    ```env
@@ -76,21 +78,21 @@ A Laravel-based RESTful API for a news aggregator service that collects articles
    QUEUE_CONNECTION=sync
    ```
 
-3. **Generate Application Key**
+2. **Generate Application Key**
    Run the following command to generate a new Laravel application key:
 
    ```bash
    php artisan key:generate
    ```
 
-4. **Run on local machine**
+3. **Run on local machine**
    Install composer dependencies
 
    ```bash
    composer install
    ```
 
-5. **Run Database Migrations and Seeders**
+4. **Run Database Migrations and Seeders**
 
    After the containers are running, execute migrations with:
 
@@ -104,14 +106,14 @@ A Laravel-based RESTful API for a news aggregator service that collects articles
    php artisan db:seed
    ```
 
-6. **Run on local machine**
+5. **Run on local machine**
    Run the following command and the application should be running on `http://localhost:8000`.
 
    ```bash
    php artisan serve
    ```
 
-7. **Run Tests**
+6. **Run Tests**
    Unit tests are available for key API endpoints. Run tests using:
 
    For Linux:
@@ -187,6 +189,20 @@ docker compose -f docker/docker-compose.yml --env-file ./.env up --build
 ```
 
 ## API Documentation
+
+Generate API documentation using swagger.
+
+Without docker:
+
+```bash
+php artisan l5-swagger:generate
+```
+
+With docker:
+
+```bash
+docker exec -t laravelapp php artisan l5-swagger:generate
+```
 
 The API documentation is generated using Swagger and is accessible at:
 
